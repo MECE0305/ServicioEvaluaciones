@@ -10,7 +10,7 @@ import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.dao.EvaluacionDao;
 
 @Service
-public class EvaluacionServiceImpl implements IEvaluacionService{
+public class EvaluacionServiceImpl implements EvaluacionService{
 
 	@Autowired
 	private EvaluacionDao evaluacionDao;

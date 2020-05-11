@@ -12,34 +12,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cempresariales.servicio.commons.model.entity.Evaluacion;
-import com.cempresariales.servicio.evaluaciones.model.service.EvaluacionServiceImpl;
+import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacion;
+import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacionPK;
+import com.cempresariales.servicio.evaluaciones.model.service.ChecklistHasEvaluacionServiceImp;
 
 @RestController
-public class EvaluacionController {
+public class ChecklistHasEvaluacionController {
 
 	@Autowired
-	private EvaluacionServiceImpl repo;
+	private ChecklistHasEvaluacionServiceImp repo;
 
 	@GetMapping("/listar")
-	public List<Evaluacion> listar() {
+	public List<ChecklistHasEvaluacion> listar() {
 		return repo.findAll();
 	}
 
 	@GetMapping("/ver/{id}")
-	public Evaluacion ver(@PathVariable Long id) {
+	public ChecklistHasEvaluacion ver(@PathVariable ChecklistHasEvaluacionPK id) {
 		return repo.findById(id);
 	}
 
 	@PostMapping("/crear")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Evaluacion crear(@RequestBody Evaluacion entidad) {
+	public ChecklistHasEvaluacion crear(@RequestBody ChecklistHasEvaluacion entidad) {
 		return repo.save(entidad);
 	}
 
 	@DeleteMapping("/eliminar/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminar(@PathVariable Long id) {
+	public void eliminar(@PathVariable ChecklistHasEvaluacionPK id) {
 		repo.delete(id);
 	}
 }

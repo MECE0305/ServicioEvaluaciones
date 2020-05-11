@@ -5,7 +5,7 @@ import java.util.List;
 import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 
 
-public interface IEvaluacionService {
+public interface EvaluacionService {
 
 	public List<Evaluacion> findAll();
 	public Evaluacion findById(Long id);

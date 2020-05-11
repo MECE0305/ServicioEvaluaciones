@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cempresariales.servicio.commons.model.entity.Evaluacion;
-import com.cempresariales.servicio.evaluaciones.model.service.EvaluacionServiceImpl;
+import com.cempresariales.servicio.commons.model.entity.Encabezado;
+import com.cempresariales.servicio.evaluaciones.model.service.EncabezadoServiceImp;
 
 @RestController
-public class EvaluacionController {
+public class EncabezadoController {
 
 	@Autowired
-	private EvaluacionServiceImpl repo;
+	private EncabezadoServiceImp repo;
 
 	@GetMapping("/listar")
-	public List<Evaluacion> listar() {
+	public List<Encabezado> listar() {
 		return repo.findAll();
 	}
 
 	@GetMapping("/ver/{id}")
-	public Evaluacion ver(@PathVariable Long id) {
+	public Encabezado ver(@PathVariable Long id) {
 		return repo.findById(id);
 	}
 
 	@PostMapping("/crear")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Evaluacion crear(@RequestBody Evaluacion entidad) {
+	public Encabezado crear(@RequestBody Encabezado entidad) {
 		return repo.save(entidad);
 	}
 

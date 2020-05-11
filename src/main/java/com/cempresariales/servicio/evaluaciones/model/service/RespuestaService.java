@@ -5,7 +5,7 @@ import java.util.List;
 import com.cempresariales.servicio.commons.model.entity.Respuesta;
 
 
-public interface IRespuestaService {
+public interface RespuestaService {
 
 	public List<Respuesta> findAll();
 	public Respuesta findById(Long id);

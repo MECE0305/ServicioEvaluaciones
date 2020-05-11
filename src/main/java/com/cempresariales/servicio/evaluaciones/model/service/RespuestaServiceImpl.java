@@ -9,7 +9,7 @@ import com.cempresariales.servicio.commons.model.entity.Respuesta;
 import com.cempresariales.servicio.evaluaciones.model.dao.RespuestaDao;
 
 @Service
-public class RespuestaServiceImpl implements IRespuestaService{
+public class RespuestaServiceImpl implements RespuestaService{
 
 	@Autowired
 	private RespuestaDao respuestaDao;
