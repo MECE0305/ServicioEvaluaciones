@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cempresariales.servicio.commons.model.entity.Encabezado;
+import com.cempresariales.servicio.commons.model.entity.EstadoEvaluacion;
 import com.cempresariales.servicio.evaluaciones.model.service.EncabezadoServiceImp;
 
 @RestController
@@ -40,6 +42,15 @@ public class EncabezadoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Encabezado crear(@RequestBody Encabezado entidad) {
 		return repo.save(entidad);
+	}
+	
+	@PutMapping("/editar/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Encabezado editar(@RequestBody Encabezado entidad, @PathVariable Long id) {
+		Encabezado entidadDb = repo.findById(id);
+		entidadDb = entidad;
+
+		return repo.save(entidadDb);
 	}
 
 	@DeleteMapping("/eliminar/{id}")

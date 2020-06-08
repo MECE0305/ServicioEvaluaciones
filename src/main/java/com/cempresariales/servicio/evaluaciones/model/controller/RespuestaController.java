@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.commons.model.entity.Respuesta;
 import com.cempresariales.servicio.evaluaciones.model.service.RespuestaServiceImpl;
 
@@ -40,6 +42,15 @@ public class RespuestaController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Respuesta crear(@RequestBody Respuesta entidad) {
 		return repo.save(entidad);
+	}
+
+	@PutMapping("/editar/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Respuesta editar(@RequestBody Respuesta entidad, @PathVariable Long id) {
+		Respuesta entidadDb = repo.findById(id);
+		entidadDb = entidad;
+
+		return repo.save(entidadDb);
 	}
 
 	@DeleteMapping("/eliminar/{id}")
