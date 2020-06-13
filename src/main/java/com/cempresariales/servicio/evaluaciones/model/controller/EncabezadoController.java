@@ -21,7 +21,7 @@ import com.cempresariales.servicio.commons.model.entity.EstadoEvaluacion;
 import com.cempresariales.servicio.evaluaciones.model.service.EncabezadoServiceImp;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
 @RequestMapping(value = "encabezado")
 public class EncabezadoController {
 

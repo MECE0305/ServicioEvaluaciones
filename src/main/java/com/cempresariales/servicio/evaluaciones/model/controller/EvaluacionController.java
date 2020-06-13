@@ -21,7 +21,7 @@ import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.service.EvaluacionServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
 @RequestMapping(value = "evaluacion")
 public class EvaluacionController {
 

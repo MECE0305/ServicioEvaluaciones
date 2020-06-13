@@ -22,7 +22,7 @@ import com.cempresariales.servicio.commons.model.entity.Encabezado;
 import com.cempresariales.servicio.evaluaciones.model.service.ChecklistHasEvaluacionServiceImp;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
 @RequestMapping(value = "checklistevaluacion")
 public class ChecklistHasEvaluacionController {
 
