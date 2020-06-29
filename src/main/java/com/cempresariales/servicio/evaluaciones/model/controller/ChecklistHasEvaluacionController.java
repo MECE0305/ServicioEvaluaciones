@@ -34,6 +34,12 @@ public class ChecklistHasEvaluacionController {
 		return repo.findAll();
 	}
 
+	
+	@GetMapping("/findByCheckListEvaluacion/{idChecklist}/{idEvaluacion}")
+	public List<ChecklistHasEvaluacion> findByCheckListEvaluacion(@PathVariable Long idChecklist, @PathVariable Long idEvaluacion) {
+		return repo.findByCheckListEvaluacion(idChecklist, idEvaluacion);
+	}
+	
 	@GetMapping("/ver/{id}")
 	public ChecklistHasEvaluacion ver(@PathVariable ChecklistHasEvaluacionPK id) {
 		return repo.findById(id);

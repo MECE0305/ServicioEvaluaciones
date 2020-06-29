@@ -35,4 +35,9 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 		repo.deleteById(id);
 	}
 
+	@Override
+	public List<ChecklistHasEvaluacion> findByCheckListEvaluacion(Long idChecklist, Long idEvaluacion) {
+		return repo.findByCheckListEvaluacion(idChecklist, idEvaluacion);
+	}
+
 }

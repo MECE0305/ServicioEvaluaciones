@@ -9,6 +9,9 @@ public interface ChecklistHasEvaluacionService {
 
 	public List<ChecklistHasEvaluacion> findAll();
 
+	
+	public List<ChecklistHasEvaluacion> findByCheckListEvaluacion(Long idChecklist, Long idEvaluacion);
+	
 	public ChecklistHasEvaluacion findById(ChecklistHasEvaluacionPK id);
 
 	public ChecklistHasEvaluacion save(ChecklistHasEvaluacion entidad);
