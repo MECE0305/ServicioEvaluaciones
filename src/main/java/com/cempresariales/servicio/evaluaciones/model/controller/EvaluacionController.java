@@ -1,5 +1,6 @@
 package com.cempresariales.servicio.evaluaciones.model.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cempresariales.servicio.commons.model.entity.Encabezado;
 import com.cempresariales.servicio.commons.model.entity.Evaluacion;
+import com.cempresariales.servicio.evaluaciones.model.dao.BuscadorDTO;
 import com.cempresariales.servicio.evaluaciones.model.service.EvaluacionServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.OPTIONS })
 @RequestMapping(value = "evaluacion")
 public class EvaluacionController {
 
@@ -31,6 +34,17 @@ public class EvaluacionController {
 	@GetMapping("/listar")
 	public List<Evaluacion> listar() {
 		return repo.findAll();
+	}
+
+	@PostMapping("/findByParams")
+	public List<Evaluacion> findByParams(@RequestBody BuscadorDTO buscador) {
+		return repo.findByParams(buscador);
+	}
+
+	@GetMapping("/findBySegmentacion/{idRegion}/{idZona}/{idProvincia}/{idCiudad}/{idZonaEstructural}")
+	public List<Evaluacion> findByParams(@PathVariable Long idRegion, @PathVariable Long idZona,
+			@PathVariable Long idProvincia, @PathVariable Long idCiudad, @PathVariable Long idZonaEstructural) {
+		return repo.findBySegmentacion(idRegion, idZona, idProvincia, idCiudad, idZonaEstructural);
 	}
 
 	@GetMapping("/ver/{id}")
@@ -43,7 +57,7 @@ public class EvaluacionController {
 	public Evaluacion crear(@RequestBody Evaluacion entidad) {
 		return repo.save(entidad);
 	}
-	
+
 	@PutMapping("/editar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Evaluacion editar(@RequestBody Evaluacion entidad, @PathVariable Long id) {
