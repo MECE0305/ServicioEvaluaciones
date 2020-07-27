@@ -260,4 +260,104 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 		}
 	}
 
+	@Override
+	public List<Evaluacion> findByFiltroTabClienteAndRol(Long idCliente, Long idEmpresa, Long idSector, Long idAgencia,
+			Long idEmpleado, Long idRol, Long idArea) {
+		try {
+
+			String signoCliente = ">";
+			String signoEmpresa = ">";
+			String signoSector = ">";
+			String signoAgencia = ">";
+			String signoEmpleado = ">";
+			String signoRol = ">";
+			String signoArea = ">";
+
+			if (idCliente != 0) {
+				signoCliente = "=";
+			}
+			if (idEmpresa != 0) {
+				signoEmpresa = "=";
+
+			}
+
+			if (idSector != 0) {
+				signoSector = "=";
+
+			}
+			if (idAgencia != 0) {
+				signoAgencia = "=";
+
+			}
+			if (idEmpleado != 0) {
+				signoEmpleado = "=";
+
+			}
+			if (idRol != 0) {
+				signoRol = "=";
+			}
+
+			if (idArea != 0) {
+				signoArea = "=";
+			}
+
+			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado "
+					+ signoEmpleado + " ?0 and eva.idEmpleado in "
+					+ "(select idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia  " + signoAgencia + " ?1 "
+					+ "and e.agenciaIdAgencia.empresaIdEmpresa.idEmpresa " + signoEmpresa + " ?2 "
+					+ "and e.agenciaIdAgencia.empresaIdEmpresa.clienteIdCliente.idCliente " + signoCliente + " ?3 "
+					+ "and e.agenciaIdAgencia.empresaIdEmpresa.sectorIdSector.idSector " + signoSector + " ?4 "
+					+ "and e.idEmpleado in (select re from RolHasEmpleado re where re.empleado.idEmpleado "
+					+ signoEmpleado + " ?5 and re.rol.idRol " + signoRol + " ?6 and e.rol.areaIdArea.idArea "
+					+ signoArea + " ?7))");
+
+			queryString.append("ORDER BY eva.creaEvaluacion desc");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			if (idEmpleado != 0) {
+				query.setParameter(0, idEmpleado);
+				query.setParameter(5, idEmpleado);
+			} else {
+				query.setParameter(0, new Long(0));
+				query.setParameter(5, new Long(0));
+			}
+			if (idAgencia != 0) {
+				query.setParameter(1, idAgencia);
+			} else {
+				query.setParameter(1, new Long(0));
+			}
+			if (idEmpresa != 0) {
+				query.setParameter(2, idEmpresa);
+			} else {
+				query.setParameter(2, new Long(0));
+			}
+			if (idCliente != 0) {
+				query.setParameter(3, idCliente);
+			} else {
+				query.setParameter(3, new Long(0));
+			}
+			if (idSector != 0) {
+				query.setParameter(4, idSector);
+			} else {
+				query.setParameter(4, new Long(0));
+			}
+			if (idRol != 0) {
+				query.setParameter(6, idRol);
+			} else {
+				query.setParameter(6, new Long(0));
+			}
+			if (idArea != 0) {
+				query.setParameter(7, idArea);
+			} else {
+				query.setParameter(7, new Long(0));
+			}
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
 }

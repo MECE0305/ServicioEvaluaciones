@@ -42,9 +42,16 @@ public class EvaluacionController {
 	}
 
 	@GetMapping("/findBySegmentacion/{idRegion}/{idZona}/{idProvincia}/{idCiudad}/{idZonaEstructural}")
-	public List<Evaluacion> findByParams(@PathVariable Long idRegion, @PathVariable Long idZona,
+	public List<Evaluacion> findBySegmentacion(@PathVariable Long idRegion, @PathVariable Long idZona,
 			@PathVariable Long idProvincia, @PathVariable Long idCiudad, @PathVariable Long idZonaEstructural) {
 		return repo.findBySegmentacion(idRegion, idZona, idProvincia, idCiudad, idZonaEstructural);
+	}
+
+	@GetMapping("/findByFiltroTabClienteAndRol/{idCliente}/{idEmpresa}/{idSector}/{idAgencia}/{idEmpleado}/{idRol}/{idArea}")
+	public List<Evaluacion> findByFiltroTabClienteAndRol(@PathVariable Long idCliente, @PathVariable Long idEmpresa,
+			@PathVariable Long idSector, @PathVariable Long idAgencia, @PathVariable Long idEmpleado,
+			@PathVariable Long idRol, @PathVariable Long idArea) {
+		return repo.findByFiltroTabClienteAndRol(idCliente, idEmpresa, idSector, idAgencia, idEmpleado, idRol, idArea);
 	}
 
 	@GetMapping("/ver/{id}")

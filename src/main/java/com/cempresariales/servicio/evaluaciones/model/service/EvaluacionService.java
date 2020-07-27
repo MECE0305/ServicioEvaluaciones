@@ -15,4 +15,8 @@ public interface EvaluacionService {
 	
 	public List<Evaluacion> findByParams(BuscadorDTO buscador);
 	public List<Evaluacion> findBySegmentacion(Long idRegion, Long idZona, Long idProvincia, Long idCiudad, Long idZonaEstructural);
+	
+	public List<Evaluacion> findByFiltroTabClienteAndRol(Long idCliente, Long idEmpresa,Long idSector,Long idAgencia, Long idEmpleado, Long idRol, Long idArea);
+
+	
 }
