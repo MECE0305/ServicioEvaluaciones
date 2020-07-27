@@ -301,25 +301,23 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 				signoArea = "=";
 			}
 
-			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado "
-					+ signoEmpleado + " ?0 and eva.idEmpleado in "
-					+ "(select idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia  " + signoAgencia + " ?1 "
+			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
+					+ "(select idEmpleado from Empleado e where e.idEmpleado in "
+					+ "(select re.empleado.idEmpleado from RolHasEmpleado re where re.empleado.idEmpleado "
+					+ signoEmpleado + " ?5 and re.rol.idRol " + signoRol + " ?6"
+					+ "and re.rol.idRol in (select r.idRol from Rol r where r.areaIdArea.idArea " + signoArea + " ?7)"
+					+ ")" + "and e.agenciaIdAgencia.idAgencia  " + signoAgencia + " ?1 "
 					+ "and e.agenciaIdAgencia.empresaIdEmpresa.idEmpresa " + signoEmpresa + " ?2 "
 					+ "and e.agenciaIdAgencia.empresaIdEmpresa.clienteIdCliente.idCliente " + signoCliente + " ?3 "
-					+ "and e.agenciaIdAgencia.empresaIdEmpresa.sectorIdSector.idSector " + signoSector + " ?4 "
-					+ "and e.idEmpleado in (select re from RolHasEmpleado re where re.empleado.idEmpleado "
-					+ signoEmpleado + " ?5 and re.rol.idRol " + signoRol + " ?6 and e.rol.areaIdArea.idArea "
-					+ signoArea + " ?7))");
+					+ "and e.agenciaIdAgencia.empresaIdEmpresa.sectorIdSector.idSector " + signoSector + " ?4 )");
 
 			queryString.append("ORDER BY eva.creaEvaluacion desc");
 
 			Query query = entityManager.createQuery(queryString.toString());
 
 			if (idEmpleado != 0) {
-				query.setParameter(0, idEmpleado);
 				query.setParameter(5, idEmpleado);
 			} else {
-				query.setParameter(0, new Long(0));
 				query.setParameter(5, new Long(0));
 			}
 			if (idAgencia != 0) {
