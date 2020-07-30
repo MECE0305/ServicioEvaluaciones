@@ -83,8 +83,6 @@ public class EvaluacionController {
 	@PostMapping("/findEvaByAgencias")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Evaluacion> findEvaByAgencias(@RequestBody Collection<Long> expresion) {
-		return repo.findEvaByAgencias(expresion).stream().map(p -> {
-			return p;
-		}).collect(Collectors.toList());
+		return repo.findEvaByAgencias(expresion);
 	}
 }
