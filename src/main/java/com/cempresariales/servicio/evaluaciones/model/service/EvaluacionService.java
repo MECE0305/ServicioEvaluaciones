@@ -1,5 +1,6 @@
 package com.cempresariales.servicio.evaluaciones.model.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.cempresariales.servicio.commons.model.entity.Evaluacion;
@@ -19,4 +20,5 @@ public interface EvaluacionService {
 	public List<Evaluacion> findByFiltroTabClienteAndRol(Long idCliente, Long idEmpresa,Long idSector,Long idAgencia, Long idEmpleado, Long idRol, Long idArea);
 
 	
+	public List<Evaluacion> findEvaByAgencias(Collection<Long> expresion);
 }

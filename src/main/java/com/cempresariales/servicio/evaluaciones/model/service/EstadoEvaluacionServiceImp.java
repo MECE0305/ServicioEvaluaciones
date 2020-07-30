@@ -1,11 +1,13 @@
 package com.cempresariales.servicio.evaluaciones.model.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cempresariales.servicio.commons.model.entity.EstadoEvaluacion;
+import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.dao.EstadoEvaluacionDao;
 
 @Service
@@ -33,5 +35,7 @@ public class EstadoEvaluacionServiceImp implements EstadoEvaluacionService {
 	public void delete(Long id) {
 		repo.deleteById(id);
 	}
+	
+	
 
 }

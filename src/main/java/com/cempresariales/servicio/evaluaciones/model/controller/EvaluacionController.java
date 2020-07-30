@@ -1,7 +1,8 @@
 package com.cempresariales.servicio.evaluaciones.model.controller;
 
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cempresariales.servicio.commons.model.entity.Encabezado;
 import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.dao.BuscadorDTO;
 import com.cempresariales.servicio.evaluaciones.model.service.EvaluacionServiceImpl;
@@ -78,5 +78,13 @@ public class EvaluacionController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void eliminar(@PathVariable Long id) {
 		repo.delete(id);
+	}
+	
+	@PostMapping("/findEvaByAgencias")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Evaluacion> findEvaByAgencias(@RequestBody Collection<Long> expresion) {
+		return repo.findEvaByAgencias(expresion).stream().map(p -> {
+			return p;
+		}).collect(Collectors.toList());
 	}
 }

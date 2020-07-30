@@ -3,6 +3,7 @@ package com.cempresariales.servicio.evaluaciones.model.service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -156,6 +157,11 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
+	}
+	
+	@Override
+	public List<Evaluacion> findEvaByAgencias(Collection<Long> expresion) {
+		return evaluacionDao.findEvaByAgencias(expresion);
 	}
 
 	@Override
