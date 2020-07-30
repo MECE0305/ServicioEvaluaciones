@@ -12,6 +12,6 @@ import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 public interface EvaluacionDao extends JpaRepository<Evaluacion, Long> {
 
 	@Query("select eva from Evaluacion eva where eva.idEmpleado in "
-			+ "(select e from Empleado e where e.agenciaIdAgencia.idAgencia in :expresion)")
+			+ "(select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in :expresion)")
 	public List<Evaluacion> findEvaByAgencias(@Param("expresion") Collection<Long> expresion);
 }
