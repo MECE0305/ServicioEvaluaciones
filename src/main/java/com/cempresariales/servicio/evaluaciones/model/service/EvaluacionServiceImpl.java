@@ -165,9 +165,7 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 
 			System.out.println("DATOS DE OBJETO EXPRESION: " + expresion);
 			
-			String valoresIn = expresion.toString();
-			valoresIn.replaceAll("[", "(");
-			valoresIn.replaceAll("]", ")");
+		
 			
 			String cadena = "";
 			for(int  id=0;id<expresion.size();id++)
