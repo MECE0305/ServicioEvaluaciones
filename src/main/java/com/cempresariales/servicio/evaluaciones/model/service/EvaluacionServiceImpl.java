@@ -165,24 +165,28 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 
 			System.out.println("DATOS DE OBJETO EXPRESION: " + expresion);
 			
-
-
+			String valoresIn = expresion.toString();
+			valoresIn.replaceAll("[", "(");
+			valoresIn.replaceAll("]", ")");
+			
 			String cadena = "";
-			for(Long id:expresion)
+			for(int  id=0;id<expresion.size();id++)
 			{
-				cadena = Long.toString(id)+",";
+				cadena = Long.toString(id);
+				if(id<expresion.size())
+					cadena+=",";
 			}
 			
 
 			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
-					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in (2,2,2,2))");
+					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in ?1)");
 
 			queryString.append(" ORDER BY eva.creaEvaluacion desc");
 
 			Query query = entityManager.createQuery(queryString.toString());
 
 
-			//query.setParameter(1, "("+cadena+")");
+			query.setParameter(1, "("+cadena+")");
 			
 			System.out.println("EXPORESION A PASAR CON IN: " + queryString.toString());
 
