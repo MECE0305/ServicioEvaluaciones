@@ -175,14 +175,14 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 			
 
 			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
-					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in ?1)");
+					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in (2,2,2,2))");
 
 			queryString.append(" ORDER BY eva.creaEvaluacion desc");
 
 			Query query = entityManager.createQuery(queryString.toString());
 
 
-			query.setParameter(1, "("+cadena+")");
+			//query.setParameter(1, "("+cadena+")");
 			
 			System.out.println("EXPORESION A PASAR CON IN: " + queryString.toString());
 
