@@ -158,10 +158,29 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 			return new ArrayList<>();
 		}
 	}
-	
+
 	@Override
 	public List<Evaluacion> findEvaByAgencias(Collection<Long> expresion) {
-		return evaluacionDao.findEvaByAgencias(expresion);
+		try {
+
+			System.out.println("DATOS DE OBJETO EXPRESION: " + expresion);
+
+			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
+					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in ?1)");
+
+			queryString.append(" ORDER BY eva.creaEvaluacion desc");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			System.out.println("EXPORESION A PASAR CON IN: " + query.toString());
+
+			query.setParameter(1, expresion);
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
 	}
 
 	@Override
