@@ -164,17 +164,15 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 		try {
 
 			System.out.println("DATOS DE OBJETO EXPRESION: " + expresion);
-			
-		
-			
+
 			String cadena = "";
-			for(int  id=0;id<expresion.size();id++)
-			{
+			for (int id = 0; id < expresion.size(); id++) {
 				cadena = Long.toString(id);
-				if(id<expresion.size())
-					cadena+=",";
+				if (id < expresion.size())
+					cadena += ",";
 			}
-			
+
+			System.out.println("CADENA A PASAR PARAM: " + cadena);
 
 			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
 					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in ?1)");
@@ -183,11 +181,9 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 
 			Query query = entityManager.createQuery(queryString.toString());
 
+			query.setParameter(1, "(" + cadena + ")");
 
-			query.setParameter(1, "("+cadena+")");
-			
 			System.out.println("EXPORESION A PASAR CON IN: " + queryString.toString());
-
 
 			return query.getResultList();
 		} catch (Exception e) {
