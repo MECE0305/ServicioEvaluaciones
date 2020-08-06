@@ -167,9 +167,9 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 
 			String cadena = "";
 			for (int id = 0; id < expresion.size(); id++) {
-				cadena = Long.toString(id);
-				if (id < expresion.size() - 1)
-					cadena += ",";
+				cadena += id+",";
+				if (id == expresion.size())
+					cadena = cadena.substring(expresion.size()-1, expresion.size());
 			}
 
 			System.out.println("CADENA A PASAR PARAM: " + cadena);
