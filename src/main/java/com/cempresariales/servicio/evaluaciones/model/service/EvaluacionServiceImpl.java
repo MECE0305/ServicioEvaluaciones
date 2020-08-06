@@ -166,8 +166,8 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 			System.out.println("DATOS DE OBJETO EXPRESION: " + expresion);
 			
 			String valoresIn = expresion.toString();
-			valoresIn.replace("[", "(");
-			valoresIn.replace("]", ")");
+			valoresIn.replaceAll("[", "(");
+			valoresIn.replaceAll("]", ")");
 			
 
 			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
