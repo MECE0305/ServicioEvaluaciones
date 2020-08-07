@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -164,24 +165,27 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 		try {
 
 			System.out.println("DATOS DE OBJETO EXPRESION: " + expresion);
-
+			Iterator<Long> iterator = expresion.iterator();
 			String cadena = "";
-			for (int id = 0; id < expresion.size(); id++) {
-				cadena += id+",";
-				if (id == expresion.size())
-					cadena = cadena.substring(expresion.size()-1, expresion.size());
+			int x = 0;
+			while (iterator.hasNext()) {
+
+				cadena += iterator.next();
+				if (x == expresion.size())
+					cadena = cadena.substring(expresion.size() - 2, expresion.size() - 1);
+
+				x++;
 			}
 
 			System.out.println("CADENA A PASAR PARAM: " + cadena);
 
 			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
-					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in ?1)");
+					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in " + "(" + cadena
+					+ ")" + ")");
 
 			queryString.append(" ORDER BY eva.creaEvaluacion desc");
 
 			Query query = entityManager.createQuery(queryString.toString());
-
-			query.setParameter(1, "(" + cadena + ")");
 
 			System.out.println("EXPORESION A PASAR CON IN: " + queryString.toString());
 
