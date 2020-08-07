@@ -170,7 +170,7 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 			int x = 0;
 			while (iterator.hasNext()) {
 
-				cadena += iterator.next();
+				cadena += iterator.next() + ",";
 				if (x == expresion.size())
 					cadena = cadena.substring(expresion.size() - 2, expresion.size() - 1);
 
