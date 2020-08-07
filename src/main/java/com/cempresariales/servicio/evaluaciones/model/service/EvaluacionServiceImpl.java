@@ -164,20 +164,18 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 	public List<Evaluacion> findEvaByAgencias(Collection<Long> expresion) {
 		try {
 
-			System.out.println("DATOS DE OBJETO EXPRESION: " + expresion);
 			Iterator<Long> iterator = expresion.iterator();
 			String cadena = "";
 			int x = 0;
 			while (iterator.hasNext()) {
 
 				cadena += iterator.next() + ",";
-				if (x == expresion.size() - 1)
+				if (x == expresion.size() - 1) {
 					cadena = cadena.substring(0, cadena.length() - 1);
+				}
 
 				x++;
 			}
-
-			System.out.println("CADENA A PASAR PARAM: " + cadena);
 
 			StringBuilder queryString = new StringBuilder("select eva from Evaluacion eva where eva.idEmpleado in "
 					+ " (select e.idEmpleado from Empleado e where e.agenciaIdAgencia.idAgencia in " + "(" + cadena
@@ -186,8 +184,6 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 			queryString.append(" ORDER BY eva.creaEvaluacion desc");
 
 			Query query = entityManager.createQuery(queryString.toString());
-
-			System.out.println("EXPORESION A PASAR CON IN: " + queryString.toString());
 
 			return query.getResultList();
 		} catch (Exception e) {
