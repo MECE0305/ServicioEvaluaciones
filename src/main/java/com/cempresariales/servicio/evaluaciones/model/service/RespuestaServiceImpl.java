@@ -1,6 +1,7 @@
 package com.cempresariales.servicio.evaluaciones.model.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,16 +10,15 @@ import com.cempresariales.servicio.commons.model.entity.Respuesta;
 import com.cempresariales.servicio.evaluaciones.model.dao.RespuestaDao;
 
 @Service
-public class RespuestaServiceImpl implements RespuestaService{
+public class RespuestaServiceImpl implements RespuestaService {
 
 	@Autowired
 	private RespuestaDao respuestaDao;
-	
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Respuesta> findAll() {
-		
+
 		return (List<Respuesta>) respuestaDao.findAll();
 	}
 
@@ -30,7 +30,7 @@ public class RespuestaServiceImpl implements RespuestaService{
 
 	@Override
 	@Transactional
-	public Respuesta save(Respuesta respuesta) {		
+	public Respuesta save(Respuesta respuesta) {
 		return respuestaDao.save(respuesta);
 	}
 
@@ -38,7 +38,13 @@ public class RespuestaServiceImpl implements RespuestaService{
 	@Transactional
 	public void delete(Long id) {
 		respuestaDao.deleteById(id);
-		
+
+	}
+
+	@Override
+	public List<Respuesta> findByCategoria(Long idCategoria) {
+		// TODO Auto-generated method stub
+		return respuestaDao.findByCategoria(idCategoria);
 	}
 
 }

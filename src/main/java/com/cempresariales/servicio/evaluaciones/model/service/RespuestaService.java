@@ -11,4 +11,7 @@ public interface RespuestaService {
 	public Respuesta findById(Long id);
 	public Respuesta save(Respuesta respuesta);
 	public void delete(Long id);
+	
+	public List<Respuesta> findByCategoria(Long idCategoria);
+
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.commons.model.entity.Respuesta;
 import com.cempresariales.servicio.evaluaciones.model.service.RespuestaServiceImpl;
 
@@ -36,6 +35,11 @@ public class RespuestaController {
 	@GetMapping("/ver/{id}")
 	public Respuesta ver(@PathVariable Long id) {
 		return repo.findById(id);
+	}
+	
+	@GetMapping("/findByCategoria/{idCategoria}")
+	public List<Respuesta> findByCategoria(@PathVariable Long idCategoria) {
+		return repo.findByCategoria(idCategoria);
 	}
 
 	@PostMapping("/crear")
