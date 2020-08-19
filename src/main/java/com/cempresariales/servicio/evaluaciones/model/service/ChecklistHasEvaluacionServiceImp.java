@@ -134,7 +134,7 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 			}
 
 			StringBuilder queryString = new StringBuilder(
-					"select cle from ChecklistHasEvaluacion cle where cle.evaluacion.idEvaluacion in (" + cadena + ")");
+					"select cle from ChecklistHasEvaluacion cle where cle.checklistHasEvaluacionPK.evaluacionIdEvaluacion in (" + cadena + ")");
 
 			Query query = entityManager.createQuery(queryString.toString());
 

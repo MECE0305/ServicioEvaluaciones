@@ -1,5 +1,6 @@
 package com.cempresariales.servicio.evaluaciones.model.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.service.ChecklistHasEvaluacionServiceImp;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.OPTIONS })
 @RequestMapping(value = "checklistevaluacion")
 public class ChecklistHasEvaluacionController {
 
@@ -35,33 +37,38 @@ public class ChecklistHasEvaluacionController {
 		return repo.findAll();
 	}
 
-	
 	@GetMapping("/findByCheckListEvaluacion/{idChecklist}/{idEvaluacion}")
-	public List<ChecklistHasEvaluacion> findByCheckListEvaluacion(@PathVariable Long idChecklist, @PathVariable Long idEvaluacion) {
+	public List<ChecklistHasEvaluacion> findByCheckListEvaluacion(@PathVariable Long idChecklist,
+			@PathVariable Long idEvaluacion) {
 		return repo.findByCheckListEvaluacion(idChecklist, idEvaluacion);
 	}
-	
+
 	@GetMapping("/findCheckListEvaluacionByCheckList/{idChecklist}")
 	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByCheckList(@PathVariable Long idChecklist) {
 		return repo.findCheckListEvaluacionByCheckList(idChecklist);
 	}
-	
+
 	@GetMapping("/findEvaluacionByCheckList/{idChecklist}")
 	public List<Evaluacion> findEvaluacionByCheckList(@PathVariable Long idChecklist) {
 		return repo.findEvaluacionByCheckList(idChecklist);
 	}
-	
+
 	@GetMapping("/findCheckListEvaluacionByEvaluacion/{idChecklist}")
 	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByEvaluacion(@PathVariable Long idEvaluacion) {
 		return repo.findCheckListEvaluacionByEvaluacion(idEvaluacion);
 	}
-	
+
 	@GetMapping("/findCheckListByEvaluacion/{idChecklist}")
 	public List<Checklist> findCheckListByEvaluacion(@PathVariable Long idEvaluacion) {
 		return repo.findCheckListByEvaluacion(idEvaluacion);
 	}
-	
-	
+
+	@PostMapping("/findCheckListEvaluacionByEvaluaciones")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByEvaluaciones(@RequestBody Collection<Long> expresion) {
+		return repo.findCheckListEvaluacionByEvaluaciones(expresion);
+	}
+
 	@GetMapping("/ver/{id}")
 	public ChecklistHasEvaluacion ver(@PathVariable ChecklistHasEvaluacionPK id) {
 		return repo.findById(id);
@@ -72,10 +79,11 @@ public class ChecklistHasEvaluacionController {
 	public ChecklistHasEvaluacion crear(@RequestBody ChecklistHasEvaluacion entidad) {
 		return repo.save(entidad);
 	}
-	
+
 	@PutMapping("/editar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ChecklistHasEvaluacion editar(@RequestBody ChecklistHasEvaluacion entidad, @PathVariable ChecklistHasEvaluacionPK id) {
+	public ChecklistHasEvaluacion editar(@RequestBody ChecklistHasEvaluacion entidad,
+			@PathVariable ChecklistHasEvaluacionPK id) {
 		ChecklistHasEvaluacion entidadDb = repo.findById(id);
 		entidadDb = entidad;
 
