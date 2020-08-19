@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cempresariales.servicio.commons.model.entity.Checklist;
 import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacion;
 import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacionPK;
-import com.cempresariales.servicio.commons.model.entity.Encabezado;
+import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.service.ChecklistHasEvaluacionServiceImp;
 
 @RestController
@@ -39,6 +40,27 @@ public class ChecklistHasEvaluacionController {
 	public List<ChecklistHasEvaluacion> findByCheckListEvaluacion(@PathVariable Long idChecklist, @PathVariable Long idEvaluacion) {
 		return repo.findByCheckListEvaluacion(idChecklist, idEvaluacion);
 	}
+	
+	@GetMapping("/findCheckListEvaluacionByCheckList/{idChecklist}")
+	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByCheckList(@PathVariable Long idChecklist) {
+		return repo.findCheckListEvaluacionByCheckList(idChecklist);
+	}
+	
+	@GetMapping("/findEvaluacionByCheckList/{idChecklist}")
+	public List<Evaluacion> findEvaluacionByCheckList(@PathVariable Long idChecklist) {
+		return repo.findEvaluacionByCheckList(idChecklist);
+	}
+	
+	@GetMapping("/findCheckListEvaluacionByEvaluacion/{idChecklist}")
+	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByEvaluacion(@PathVariable Long idEvaluacion) {
+		return repo.findCheckListEvaluacionByEvaluacion(idEvaluacion);
+	}
+	
+	@GetMapping("/findCheckListByEvaluacion/{idChecklist}")
+	public List<Checklist> findCheckListByEvaluacion(@PathVariable Long idEvaluacion) {
+		return repo.findCheckListByEvaluacion(idEvaluacion);
+	}
+	
 	
 	@GetMapping("/ver/{id}")
 	public ChecklistHasEvaluacion ver(@PathVariable ChecklistHasEvaluacionPK id) {

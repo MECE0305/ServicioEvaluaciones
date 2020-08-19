@@ -1,12 +1,21 @@
 package com.cempresariales.servicio.evaluaciones.model.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cempresariales.servicio.commons.model.entity.Checklist;
 import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacion;
 import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacionPK;
+import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.dao.ChecklistHasEvaluacionDao;
 
 @Service
@@ -14,6 +23,9 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 
 	@Autowired
 	private ChecklistHasEvaluacionDao repo;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public List<ChecklistHasEvaluacion> findAll() {
@@ -38,6 +50,99 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 	@Override
 	public List<ChecklistHasEvaluacion> findByCheckListEvaluacion(Long idChecklist, Long idEvaluacion) {
 		return repo.findByCheckListEvaluacion(idChecklist, idEvaluacion);
+	}
+
+	@Override
+	public List<Evaluacion> findEvaluacionByCheckList(Long idChecklist) {
+		try {
+			StringBuilder queryString = new StringBuilder(
+					"select cle.evaluacion from ChecklistHasEvaluacion cle where cle.checklist.idChecklist = ?1");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			query.setParameter(1, idChecklist);
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
+	public List<Checklist> findCheckListByEvaluacion(Long idEvaluacion) {
+		try {
+			StringBuilder queryString = new StringBuilder(
+					"select cle.checklist from ChecklistHasEvaluacion cle where cle.evaluacion.idEvaluacion = ?1");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
+	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByCheckList(Long idChecklist) {
+		try {
+			StringBuilder queryString = new StringBuilder(
+					"select cle from ChecklistHasEvaluacion cle where cle.checklist.idChecklist = ?1");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			query.setParameter(1, idChecklist);
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
+	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByEvaluacion(Long idEvaluacion) {
+		try {
+			StringBuilder queryString = new StringBuilder(
+					"select cle from ChecklistHasEvaluacion cle where cle.evaluacion.idEvaluacion = ?1");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
+	public List<ChecklistHasEvaluacion> findCheckListEvaluacionByEvaluaciones(Collection<Long> expresion) {
+		try {
+
+			Iterator<Long> iterator = expresion.iterator();
+			String cadena = "";
+			int x = 0;
+			while (iterator.hasNext()) {
+
+				cadena += iterator.next() + ",";
+				if (x == expresion.size() - 1) {
+					cadena = cadena.substring(0, cadena.length() - 1);
+				}
+
+				x++;
+			}
+
+			StringBuilder queryString = new StringBuilder(
+					"select cle from ChecklistHasEvaluacion cle where cle.evaluacion.idEvaluacion in (" + cadena + ")");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
 	}
 
 }
