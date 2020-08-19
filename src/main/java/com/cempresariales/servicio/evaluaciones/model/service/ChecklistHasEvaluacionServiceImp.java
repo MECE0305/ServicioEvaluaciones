@@ -76,6 +76,9 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 					"select cle.checklist from ChecklistHasEvaluacion cle where cle.evaluacion.idEvaluacion = ?1");
 
 			Query query = entityManager.createQuery(queryString.toString());
+			
+			query.setParameter(1, idEvaluacion);
+
 
 			return query.getResultList();
 		} catch (Exception e) {
@@ -108,6 +111,9 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 					"select cle from ChecklistHasEvaluacion cle where cle.evaluacion.idEvaluacion = ?1");
 
 			Query query = entityManager.createQuery(queryString.toString());
+			
+			query.setParameter(1, idEvaluacion);
+
 
 			return query.getResultList();
 		} catch (Exception e) {
@@ -134,7 +140,7 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 			}
 
 			StringBuilder queryString = new StringBuilder(
-					"select cle from ChecklistHasEvaluacion cle where cle.checklistHasEvaluacionPK.evaluacionIdEvaluacion in (" + cadena + ")");
+					"select cle from ChecklistHasEvaluacion cle where cle.evaluacion.idEvaluacion in (" + cadena + ")");
 
 			Query query = entityManager.createQuery(queryString.toString());
 
