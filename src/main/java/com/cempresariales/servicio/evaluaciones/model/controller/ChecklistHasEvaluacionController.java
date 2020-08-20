@@ -69,6 +69,23 @@ public class ChecklistHasEvaluacionController {
 		return repo.findCheckListEvaluacionByEvaluaciones(expresion);
 	}
 
+	@PostMapping("/findEvaluacionByIdsRol")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Evaluacion> findEvaluacionByIdsRol(@RequestBody Collection<Long> expresion) {
+		return repo.findEvaluacionByIdsRol(expresion);
+	}
+	
+	
+	@PostMapping("/findEvaluacionByIdsChecklist")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Evaluacion> findEvaluacionByIdsChecklist(@RequestBody Collection<Long> expresion) {
+		return repo.findEvaluacionByIdsChecklist(expresion);
+	}
+	
+	
+	
+	
+	
 	@GetMapping("/ver/{id}")
 	public ChecklistHasEvaluacion ver(@PathVariable ChecklistHasEvaluacionPK id) {
 		return repo.findById(id);

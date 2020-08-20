@@ -19,6 +19,12 @@ public interface ChecklistHasEvaluacionService {
 	public List<Evaluacion> findEvaluacionByCheckList(Long idChecklist);
 	public List<Checklist> findCheckListByEvaluacion(Long idEvaluacion);
 	
+	
+	public List<Evaluacion> findEvaluacionByIdsRol(Collection<Long> expresion);
+
+	public List<Evaluacion> findEvaluacionByIdsChecklist(Collection<Long> expresion);
+
+	
 	public ChecklistHasEvaluacion findById(ChecklistHasEvaluacionPK id);
 
 	public ChecklistHasEvaluacion save(ChecklistHasEvaluacion entidad);

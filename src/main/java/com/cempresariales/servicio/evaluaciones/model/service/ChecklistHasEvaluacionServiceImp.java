@@ -151,4 +151,63 @@ public class ChecklistHasEvaluacionServiceImp implements ChecklistHasEvaluacionS
 		}
 	}
 
+	@Override
+	public List<Evaluacion> findEvaluacionByIdsRol(Collection<Long> expresion) {
+		try {
+
+			Iterator<Long> iterator = expresion.iterator();
+			String cadena = "";
+			int x = 0;
+			while (iterator.hasNext()) {
+
+				cadena += iterator.next() + ",";
+				if (x == expresion.size() - 1) {
+					cadena = cadena.substring(0, cadena.length() - 1);
+				}
+
+				x++;
+			}
+
+			StringBuilder queryString = new StringBuilder(
+					"select cle.evaluacion from ChecklistHasEvaluacion cle where cle.checklist.idChecklist in "
+					+ "(select cl.idChecklist from Checklist cl where cl.rolIdRol.idRol in (" + cadena + "))");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
+	public List<Evaluacion> findEvaluacionByIdsChecklist(Collection<Long> expresion) {
+		try {
+
+			Iterator<Long> iterator = expresion.iterator();
+			String cadena = "";
+			int x = 0;
+			while (iterator.hasNext()) {
+
+				cadena += iterator.next() + ",";
+				if (x == expresion.size() - 1) {
+					cadena = cadena.substring(0, cadena.length() - 1);
+				}
+
+				x++;
+			}
+
+			StringBuilder queryString = new StringBuilder(
+					"select cle.evaluacion from ChecklistHasEvaluacion cle where cle.checklist.idChecklist in (" + cadena + ")");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
 }
