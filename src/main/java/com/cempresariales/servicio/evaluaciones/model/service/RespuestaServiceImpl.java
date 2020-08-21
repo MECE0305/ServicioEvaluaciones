@@ -66,12 +66,12 @@ public class RespuestaServiceImpl implements RespuestaService {
 
 			int x = 0;
 			for (ChecklistHasEvaluacion cl : lista) {
-				cadenaChecklist += cl.getChecklist().getIdChecklist() + ",";
+				cadenaChecklist += cl.getChecklistHasEvaluacionPK().getChecklistIdChecklist() + ",";
 				if (x == lista.size() - 1) {
 					cadenaChecklist = cadenaChecklist.substring(0, cadenaChecklist.length() - 1);
 				}
 
-				cadenaEvaluacion += cl.getChecklist().getIdChecklist() + ",";
+				cadenaEvaluacion += cl.getChecklistHasEvaluacionPK().getEvaluacionIdEvaluacion() + ",";
 				if (x == lista.size() - 1) {
 					cadenaEvaluacion = cadenaEvaluacion.substring(0, cadenaEvaluacion.length() - 1);
 				}
