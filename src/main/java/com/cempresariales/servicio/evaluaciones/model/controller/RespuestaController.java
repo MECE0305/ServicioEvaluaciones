@@ -1,5 +1,6 @@
 package com.cempresariales.servicio.evaluaciones.model.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacion;
+import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.commons.model.entity.Respuesta;
 import com.cempresariales.servicio.evaluaciones.model.service.RespuestaServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.OPTIONS })
 @RequestMapping(value = "respuesta")
 public class RespuestaController {
 
@@ -36,7 +40,7 @@ public class RespuestaController {
 	public Respuesta ver(@PathVariable Long id) {
 		return repo.findById(id);
 	}
-	
+
 	@GetMapping("/findByCategoria/{idCategoria}")
 	public List<Respuesta> findByCategoria(@PathVariable Long idCategoria) {
 		return repo.findByCategoria(idCategoria);
@@ -61,5 +65,11 @@ public class RespuestaController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void eliminar(@PathVariable Long id) {
 		repo.delete(id);
+	}
+
+	@PostMapping("/findRespuestaByChecklistEvaluacion")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Respuesta> findRespuestaByChecklistEvaluacion(@RequestBody List<ChecklistHasEvaluacion> lista) {
+		return repo.findRespuestaByChecklistEvaluacion(lista);
 	}
 }

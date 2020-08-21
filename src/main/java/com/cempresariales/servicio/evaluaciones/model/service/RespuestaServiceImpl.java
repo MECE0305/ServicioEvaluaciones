@@ -1,11 +1,18 @@
 package com.cempresariales.servicio.evaluaciones.model.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacion;
 import com.cempresariales.servicio.commons.model.entity.Respuesta;
 import com.cempresariales.servicio.evaluaciones.model.dao.RespuestaDao;
 
@@ -14,6 +21,9 @@ public class RespuestaServiceImpl implements RespuestaService {
 
 	@Autowired
 	private RespuestaDao respuestaDao;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -45,6 +55,42 @@ public class RespuestaServiceImpl implements RespuestaService {
 	public List<Respuesta> findByCategoria(Long idCategoria) {
 		// TODO Auto-generated method stub
 		return respuestaDao.findByCategoria(idCategoria);
+	}
+
+	@Override
+	public List<Respuesta> findRespuestaByChecklistEvaluacion(List<ChecklistHasEvaluacion> lista) {
+		try {
+
+			String cadenaChecklist = "";
+			String cadenaEvaluacion = "";
+
+			int x = 0;
+			for (ChecklistHasEvaluacion cl : lista) {
+				cadenaChecklist += cl.getChecklist().getIdChecklist() + ",";
+				if (x == lista.size() - 1) {
+					cadenaChecklist = cadenaChecklist.substring(0, cadenaChecklist.length() - 1);
+				}
+
+				cadenaEvaluacion += cl.getChecklist().getIdChecklist() + ",";
+				if (x == lista.size() - 1) {
+					cadenaEvaluacion = cadenaEvaluacion.substring(0, cadenaEvaluacion.length() - 1);
+				}
+
+				x++;
+			}
+
+			StringBuilder queryString = new StringBuilder(
+					"select r from Respuesta r where r.checklistHasEvaluacion.checklist.idChecklist in  ("
+							+ cadenaChecklist + ") and r.checklistHasEvaluacion.evaluacion.idEvaluacion in  ("
+							+ cadenaEvaluacion + ")");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
 	}
 
 }
