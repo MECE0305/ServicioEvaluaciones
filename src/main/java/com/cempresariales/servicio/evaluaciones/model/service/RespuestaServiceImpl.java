@@ -79,6 +79,9 @@ public class RespuestaServiceImpl implements RespuestaService {
 				x++;
 			}
 
+			System.out.println("IN 1: " + cadenaChecklist);
+			System.out.println("IN 2: " + cadenaEvaluacion);
+
 			StringBuilder queryString = new StringBuilder(
 					"select r from Respuesta r where r.checklistHasEvaluacion.checklist.idChecklist in  ("
 							+ cadenaChecklist + ") and r.checklistHasEvaluacion.evaluacion.idEvaluacion in  ("
