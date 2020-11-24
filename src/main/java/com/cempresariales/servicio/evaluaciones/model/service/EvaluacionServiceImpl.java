@@ -1,14 +1,9 @@
 package com.cempresariales.servicio.evaluaciones.model.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cempresariales.servicio.commons.model.entity.ChecklistHasCatalogoPregunta;
-import com.cempresariales.servicio.commons.model.entity.ChecklistHasEvaluacion;
 import com.cempresariales.servicio.commons.model.entity.Evaluacion;
 import com.cempresariales.servicio.evaluaciones.model.dao.BuscadorDTO;
 import com.cempresariales.servicio.evaluaciones.model.dao.EvaluacionDao;
@@ -390,6 +383,11 @@ public class EvaluacionServiceImpl implements EvaluacionService {
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
+	}
+
+	@Override
+	public List<Evaluacion> findByEvaluacionCategoria(Long idEvaluacion, Long idCategoria) {
+		return evaluacionDao.findByEvaluacionCategoria(idEvaluacion, idCategoria);
 	}
 
 }

@@ -21,4 +21,6 @@ public interface EvaluacionService {
 
 	
 	public List<Evaluacion> findEvaByAgencias(Collection<Long> expresion);
+	public List<Evaluacion> findByEvaluacionCategoria(Long idEvaluacion, Long idCategoria);
+	
 }

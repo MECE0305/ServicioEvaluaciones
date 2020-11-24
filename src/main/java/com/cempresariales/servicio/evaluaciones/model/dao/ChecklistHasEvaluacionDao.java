@@ -14,5 +14,8 @@ public interface ChecklistHasEvaluacionDao extends JpaRepository<ChecklistHasEva
 	@Query("select cle from ChecklistHasEvaluacion cle where cle.checklist.idChecklist = ?1 and cle.evaluacion.idEvaluacion = ?2")
 	List<ChecklistHasEvaluacion> findByCheckListEvaluacion(@Param("idCheckList") Long idCheckList,
 			@Param("idEvaluacion") Long idEvaluacion);
+	
+	
+	
 
 }
